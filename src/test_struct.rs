@@ -1,4 +1,4 @@
-use log::{info, warn, error};
+use log::info;
 #[derive(Debug, Clone)]
 pub struct Test {
     pub url: String,

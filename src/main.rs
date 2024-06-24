@@ -20,6 +20,13 @@ use Me::test_enum::*;
 use Me::test_error::catch_error;
 use Me::test_lambda::exec_lambda;
 use Me::test_struct::*;
+use Me::test_t_interface::{exec_test_option_t, Person, Descriptive, Value};
+
+pub fn exec_interface() {
+    let value: Person = Person::create(String::from("tom"), 8);
+    info!("value.get_age() = {}", value.get_age());
+    info!("value.describe() = {}", value.describe());
+}
 
 fn main() {
     // 配置 fern 记录器
@@ -48,4 +55,11 @@ fn main() {
     exec_submod();
     // 闭包，我觉得就是java的lambda
     info!("{}", exec_lambda(PI, E, PI));
+    // 泛化
+    exec_test_option_t();
+    // 接口
+    exec_interface();
+
+    // 捕获错误
+    catch_error()
 }

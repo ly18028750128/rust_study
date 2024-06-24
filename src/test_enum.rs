@@ -2,7 +2,7 @@
 // use test_struct::Test;
 use crate::submod::test_submod::exec_submod;
 use crate::test_struct::Test;
-use log::{debug, error, info, trace, warn};
+use log::info;
 #[derive(Debug, Clone)]
 pub enum TestEnum {
     Papery(Test),
