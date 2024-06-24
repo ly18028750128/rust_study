@@ -7,33 +7,38 @@
 
 extern crate greeting as Me;
 
-use log::{info};
 use chrono::Local;
+use env_logger::Builder;
 use fern::Dispatch;
+use log::info;
+use log::LevelFilter;
+use std::f64::consts::E;
+use std::f64::consts::PI;
+use std::io::Write;
 use Me::submod::test_submod::exec_submod;
 use Me::test_enum::*;
+use Me::test_error::catch_error;
 use Me::test_lambda::exec_lambda;
 use Me::test_struct::*;
-use Me::test_error::catch_error;
-use std::f64::consts::PI;
-use std::f64::consts::E;
-
 
 fn main() {
     // 配置 fern 记录器
-    Dispatch::new()
-        .format(|out, message, record| {
-            out.finish(format_args!(
-                "{} [{}] {}",
-                Local::now().format("%Y-%m-%d %H:%M:%S"),
+    // Initialize the logger with custom formatting
+    Builder::new()
+        .format(|buf, record| {
+            writeln!(
+                buf,
+                "[{}] {} on {}:{}  {}",
                 record.level(),
-                message
-            ))
+                Local::now().format("%Y-%m-%d %H:%M:%S"),
+                record.file().unwrap_or("unknown"),
+                record.line().unwrap_or(0),
+                record.args()
+            )
         })
-        .level(log::LevelFilter::Debug)
-        .chain(std::io::stdout())
-        .apply()
-        .unwrap();
+        .filter(None, LevelFilter::Debug)
+        .target(env_logger::Target::Stdout)
+        .init();
 
     // 结构体控制测试
     struct_exec();
@@ -42,6 +47,5 @@ fn main() {
     // 包结构测试
     exec_submod();
     // 闭包，我觉得就是java的lambda
-    info!("{}",exec_lambda(PI, E, PI));
-    catch_error()
+    info!("{}", exec_lambda(PI, E, PI));
 }

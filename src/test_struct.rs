@@ -7,7 +7,7 @@ pub struct Test {
 }
 
 impl Test {
-    pub fn showMe(&self) -> String {
+    pub fn show_me(&self) -> String {
         format!("{:?}", self)
     }
 }
@@ -25,14 +25,16 @@ pub fn struct_exec(){
             name: String::from("测试用的"),
             weight: 1,
         };
+        // 这里要用clone,通过drive宏注入，要不然打印test会报所有被移走的异常
         let test1 = Test {
             url: String::from("http://example.com1"),
             ..test.clone()
         };
+        
         // let str = format!("{:#?}", test1);
-        info!("{}", test1.showMe());
+        info!("{}", test1.show_me());
         // let str = format!("{:#?}", test);
-        info!("{}", test.showMe());
+        info!("{}", test.show_me());
     
         let black = Color(0,0,0);
         info!("{}", format!("{:?}", black));
