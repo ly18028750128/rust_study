@@ -8,7 +8,7 @@ pub struct Test {
 
 impl Test {
     pub fn showMe(&self) -> String {
-        format!("{:#?}", self)
+        format!("{:?}", self)
     }
 }
 

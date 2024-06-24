@@ -17,7 +17,7 @@ pub fn enum_exec() {
         name: String::from("a enum"),
         weight: 10
     });
-    info!("{:#?}", test_enum);
+    info!("{:?}", test_enum);
     let test_enum = TestEnum::Electronic(String::from("a test"));
     info!("{:?}", test_enum);
     exec_submod()
