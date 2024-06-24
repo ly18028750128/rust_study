@@ -57,7 +57,7 @@ pub trait Descriptive {
 pub trait Value<T> {
     fn get_age(&self) -> T;
 }
-
+#[derive(Debug)]
 pub struct Person {
     name: String,
     age: u8,
@@ -76,10 +76,20 @@ impl Value<u8> for Person {
 }
 
 impl Person {
-    pub fn create(name: String, age: u8) -> Person {
+    pub fn create_impl(name: String, age: u8) -> impl Descriptive + Value<u8> {
         Person { name, age }
     }
+    pub fn create(name: String, age: u8) -> Person {
+      Person { name, age }
+  }
 }
+
+// pub fn person() -> impl Descriptive {
+//    Person {
+//        name: String::from("Cali"),
+//        age: 24
+//    }
+// }
 
 // pub fn exec_interface() {
 //    let value: Person = Person::create(String::from("tine"), 8);

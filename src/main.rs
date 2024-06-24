@@ -23,7 +23,8 @@ use Me::test_struct::*;
 use Me::test_t_interface::{exec_test_option_t, Person, Descriptive, Value};
 
 pub fn exec_interface() {
-    let value: Person = Person::create(String::from("tom"), 8);
+    let value = Person::create(String::from("tom"), 8);
+    info!("value.get_age() = {:?}", value);
     info!("value.get_age() = {}", value.get_age());
     info!("value.describe() = {}", value.describe());
 }
@@ -61,5 +62,7 @@ fn main() {
     exec_interface();
 
     // 捕获错误
-    catch_error()
+    catch_error();
+
+    
 }
